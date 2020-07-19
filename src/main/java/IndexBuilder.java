@@ -2,6 +2,7 @@ import indexing.Indexer;
 import org.apache.commons.configuration.ConfigurationException;
 import org.apache.commons.configuration.PropertiesConfiguration;
 import preprocessing.PreProcessor;
+import preprocessing.TextProcess;
 import utils.HelpingFunctions;
 
 import java.io.*;
@@ -18,6 +19,7 @@ public class IndexBuilder {
     FileReader fileReader;
     BufferedReader bufferedReader;
     List<String> splitedLine;
+    TextProcess textProcess;
 
     IndexBuilder() throws ConfigurationException, IOException {
         config = new PropertiesConfiguration();
@@ -25,6 +27,7 @@ public class IndexBuilder {
         corpusPath = config.getString("corpus.path");
         preProcessor = new PreProcessor();
         indexer = new Indexer();
+        textProcess = new TextProcess();
     }
 
 
@@ -33,7 +36,6 @@ public class IndexBuilder {
         final File folder = new File(corpusPath);
         for (final File fileEntry : folder.listFiles()) {
             processFile(fileEntry);
-            break;
             }
         indexer.build();
         }
@@ -44,14 +46,15 @@ public class IndexBuilder {
         String line;
         while((line = br.readLine()) != null)
             processLine(line, fileEntry.getName());
-
+        System.out.println(fileEntry.getName());
     }
 
     private void processLine(String line, String fileName) {
-        line = HelpingFunctions.removeDecimeters(line);
-        List<String> splitedLine = (new ArrayList<String>(Arrays.asList(line.toLowerCase().split("\\s"))));
+//        line = HelpingFunctions.removeDecimeters(line);
+//        List<String> splitedLine = (new ArrayList<String>(Arrays.asList(line.toLowerCase().split("\\s"))));
 
-        splitedLine = preProcessor.linePreProcess(splitedLine);
+//        splitedLine = preProcessor.linePreProcess(splitedLine);
+        splitedLine = textProcess.lemmatize(line);
         indexer.addLineToDoc(fileName, splitedLine);
     }
 }

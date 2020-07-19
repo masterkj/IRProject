@@ -41,6 +41,13 @@
             <version>1.6</version>
         </dependency>
 
+        <!-- https://mvnrepository.com/artifact/edu.stanford.nlp/stanford-corenlp -->
+        <dependency>
+            <groupId>edu.stanford.nlp</groupId>
+            <artifactId>stanford-corenlp</artifactId>
+        </dependency>
+
+
     </dependencies>
 
 

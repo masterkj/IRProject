@@ -5,8 +5,6 @@ import java.io.IOException;
 
 public class Main {
     public static void main(String[] args) throws IOException, ConfigurationException {
-        SpellCheck spellCheck = new SpellCheck();
-        spellCheck.getMisspelled("the boyss");
-//        new IndexBuilder().build();
+        new IndexBuilder().build();
     }
 }

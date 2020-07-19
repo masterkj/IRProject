@@ -65,13 +65,7 @@ public class Indexer {
         );
     }
 
-    private Double calculateTf(Integer freq, Integer docSize) {
-        DecimalFormat df = new DecimalFormat("#.#########");
-        Double d =  (freq *1.0) / docSize;
-        d = Double.parseDouble(df.format(d));
-        System.out.println("freq: " + freq + " doc size: " + docSize + " res: " + df.format(d));
-        return d;
-    }
+
 
     //FIXME
     private Integer getDocSize(String doc) {
@@ -92,6 +86,14 @@ public class Indexer {
         });
         Double idf = calculateIdf(WordGloballyFreq.get(), corpusSize());
         this.idf.put(word, idf);
+    }
+
+    private Double calculateTf(Integer freq, Integer docSize) {
+        DecimalFormat df = new DecimalFormat("#.#########");
+        Double d =  (freq *1.0) / docSize;
+        d = Double.parseDouble(df.format(d));
+        System.out.println("freq: " + freq + " doc size: " + docSize + " res: " + df.format(d));
+        return d;
     }
 
     private Double calculateIdf(Long wordGlobalFreq, Long corpusSize) {
